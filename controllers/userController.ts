@@ -1,4 +1,4 @@
-import UserService from "../services/userService";
+import userService from "../services/userService";
 import Express from "express";
 
 class UserController {
@@ -7,11 +7,9 @@ class UserController {
     response: Express.Response,
     next: any
   ) {
-    const service = new UserService();
-
-    const userData = await service.telegramSingUp(request.body);
+    const userData = await userService.telegramSingUp(request.body);
     response.json(userData);
   }
 }
 
-export default UserController;
+export default new UserController();

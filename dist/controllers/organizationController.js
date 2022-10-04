@@ -12,13 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const userService_1 = __importDefault(require("../services/userService"));
-class UserController {
-    telegramSignUp(request, response, next) {
+const organizationService_1 = __importDefault(require("../services/organizationService"));
+class OrganizationController {
+    requestToSingUp(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userData = yield userService_1.default.telegramSingUp(request.body);
-            response.json(userData);
+            yield organizationService_1.default.requestToSingUp(request.body);
+            response.status(200);
+        });
+    }
+    verifyOrganization(request, response, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { organizationId } = request.body;
+            yield organizationService_1.default.verifyOrganization(organizationId);
+            response.status(200);
         });
     }
 }
-exports.default = new UserController();
+exports.default = new OrganizationController();

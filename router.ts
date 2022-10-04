@@ -1,9 +1,17 @@
 import Express from "express";
-import UserController from "./controllers/userController";
+import userController from "./controllers/userController";
+import organizationController from "./controllers/organizationController";
 
 const router = Express.Router();
-const userController = new UserController();
 
-router.post("/telegram-sign-up", userController.telegramSignUp);
+router.post("/telegram/user-sign-up", userController.telegramSignUp);
+router.post(
+  "/telegram/organization-request-sign-up",
+  organizationController.requestToSingUp
+);
+router.post(
+  "/telegram/verified-organization",
+  organizationController.verifyOrganization
+);
 
 export default router;

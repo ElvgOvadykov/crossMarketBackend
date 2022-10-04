@@ -29,4 +29,4 @@ class UserService {
         });
     }
 }
-exports.default = UserService;
+exports.default = new UserService();

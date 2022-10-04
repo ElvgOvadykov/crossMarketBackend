@@ -5,7 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userController_1 = __importDefault(require("./controllers/userController"));
+const organizationController_1 = __importDefault(require("./controllers/organizationController"));
 const router = express_1.default.Router();
-const userController = new userController_1.default();
-router.post("/telegram-sign-up", userController.telegramSignUp);
+router.post("/telegram/user-sign-up", userController_1.default.telegramSignUp);
+router.post("/telegram/organization-request-sign-up", organizationController_1.default.requestToSingUp);
+router.post("/telegram/verified-organization", organizationController_1.default.verifyOrganization);
 exports.default = router;
