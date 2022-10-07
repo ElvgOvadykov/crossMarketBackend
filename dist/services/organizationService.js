@@ -14,10 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const organization_1 = __importDefault(require("../models/organization"));
 class OrganizationService {
+    getOrganizationByTelegramId(telegramId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const organization = yield organization_1.default.findOne({
+                telegramId: telegramId,
+            });
+            return organization;
+        });
+    }
     requestToSingUp(newOrganization) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { phone, name, founderName } = newOrganization;
+            const { telegramId, phone, name, founderName } = newOrganization;
             const organization = yield organization_1.default.create({
+                telegramId,
                 phone,
                 name,
                 founderName,
@@ -31,7 +40,10 @@ class OrganizationService {
             if (!(yield organization_1.default.findById(organizationId))) {
                 return;
             }
-            yield organization_1.default.findOneAndUpdate({ _id: organizationId }, { isVerified: true });
+            const organization = yield organization_1.default.findOneAndUpdate({ _id: organizationId }, { isVerified: true }, {
+                new: true,
+            });
+            return organization;
         });
     }
 }

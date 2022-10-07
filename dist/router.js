@@ -9,5 +9,6 @@ const organizationController_1 = __importDefault(require("./controllers/organiza
 const router = express_1.default.Router();
 router.post("/telegram/user-sign-up", userController_1.default.telegramSignUp);
 router.post("/telegram/organization-request-sign-up", organizationController_1.default.requestToSingUp);
-router.post("/telegram/verified-organization", organizationController_1.default.verifyOrganization);
+router.post("/organization/verify", organizationController_1.default.verifyOrganization);
+router.get("/organization/:telegramId", organizationController_1.default.getOrganizationByTelegramId);
 exports.default = router;

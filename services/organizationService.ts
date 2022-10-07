@@ -1,10 +1,19 @@
 import OrganizationModel from "../models/organization";
 
 class OrganizationService {
+  async getOrganizationByTelegramId(telegramId: string) {
+    const organization = await OrganizationModel.findOne({
+      telegramId: telegramId,
+    });
+
+    return organization;
+  }
+
   async requestToSingUp(newOrganization: any) {
-    const { phone, name, founderName } = newOrganization;
+    const { telegramId, phone, name, founderName } = newOrganization;
 
     const organization = await OrganizationModel.create({
+      telegramId,
       phone,
       name,
       founderName,
@@ -19,10 +28,15 @@ class OrganizationService {
       return;
     }
 
-    await OrganizationModel.findOneAndUpdate(
+    const organization = await OrganizationModel.findOneAndUpdate(
       { _id: organizationId },
-      { isVerified: true }
+      { isVerified: true },
+      {
+        new: true,
+      }
     );
+
+    return organization;
   }
 }
 

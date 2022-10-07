@@ -14,17 +14,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const organizationService_1 = __importDefault(require("../services/organizationService"));
 class OrganizationController {
+    getOrganizationByTelegramId(request, response, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { telegramId } = request.params;
+            const organization = yield organizationService_1.default.getOrganizationByTelegramId(String(telegramId));
+            if (!organization) {
+                return response.status(404).json(null);
+            }
+            return response.json(organization);
+        });
+    }
     requestToSingUp(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield organizationService_1.default.requestToSingUp(request.body);
-            response.status(200);
+            const organization = yield organizationService_1.default.requestToSingUp(request.body);
+            return response.json(organization);
         });
     }
     verifyOrganization(request, response, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const { organizationId } = request.body;
-            yield organizationService_1.default.verifyOrganization(organizationId);
-            response.status(200);
+            const organization = yield organizationService_1.default.verifyOrganization(organizationId);
+            return response.json(organization);
         });
     }
 }

@@ -9,9 +9,10 @@ router.post(
   "/telegram/organization-request-sign-up",
   organizationController.requestToSingUp
 );
-router.post(
-  "/telegram/verified-organization",
-  organizationController.verifyOrganization
+router.post("/organization/verify", organizationController.verifyOrganization);
+router.get(
+  "/organization/:telegramId",
+  organizationController.getOrganizationByTelegramId
 );
 
 export default router;
